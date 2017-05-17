@@ -1,5 +1,5 @@
 import { Client } from './lib/client'
-const createClient = () => new Client()
+const createClient = (options) => new Client(options)
 
 export {
   createClient
