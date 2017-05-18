@@ -7,7 +7,7 @@ A ES2015 TVMaze Client for Node.js
 ```
 $ npm install tvmaze-zucchinidev --save
 ```
-
+## Usage
 ```js
 import { tvmaze } from 'tv-maze-zucchinidev'
 const client = tvmaze.createClient()
