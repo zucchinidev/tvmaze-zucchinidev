@@ -13,11 +13,15 @@ import { tvmaze } from 'tv-maze-zucchinidev'
 const client = tvmaze.createClient()
 
 client.shows().then((response) => {
-    // .....
+    // do something with shows
 })
 
 client.search(showName).then((response) => {
-    // .....
+    // do something with shows
+})
+
+client.search(showName, { single: true }).then((response) => {
+    // do something with show
 })
 ```
 
