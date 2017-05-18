@@ -1,5 +1,5 @@
 import { test } from 'babel-tap'
-import { tvmaze } from '../index'
+import { tvmaze } from '../lib/index'
 import { Client } from '../lib/client'
 import nock from 'nock'
 const endpoint = 'http://api.tvmaze.test'
