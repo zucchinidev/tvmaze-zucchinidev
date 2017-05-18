@@ -119,3 +119,28 @@ test('should search a single show', (t) => {
       t.end()
     })
 })
+
+test('should retrieve a show by id', (t) => {
+  const client = tvmaze.createClient({
+    endpoint
+  })
+
+  const response = {
+    'id': 139,
+    'url': 'http://www.tvmaze.com/shows/139/girls',
+    'name': 'Girls',
+    'language': 'English'
+  }
+  const id = 139
+  nock(endpoint)
+    .get(`/shows/${id}`)
+    .reply(200, response)
+
+  client
+    .show(id)
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.equals(body.name, 'Girls', 'should retrieve a show name')
+      t.end()
+    })
+})
