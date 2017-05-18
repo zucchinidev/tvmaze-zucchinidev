@@ -16,6 +16,11 @@ client.shows().then((response) => {
     // do something with shows
 })
 
+
+client.show(showId).then((response) => {
+    // do something with show
+})
+
 client.search(showName).then((response) => {
     // do something with shows
 })
