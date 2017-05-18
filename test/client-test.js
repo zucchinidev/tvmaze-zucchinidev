@@ -92,3 +92,30 @@ test('should fail if not query is passed', (t) => {
       t.end()
     })
 })
+
+test('should search a single show', (t) => {
+  const client = tvmaze.createClient({
+    endpoint
+  })
+  t.equals(typeof client.search, 'function', 'should be a function')
+
+  const response = {
+    'id': 139,
+    'url': 'http://www.tvmaze.com/shows/139/girls',
+    'name': 'Girls',
+    'language': 'English'
+  }
+  const q = 'girls'
+  nock(endpoint)
+    .get('/singlesearch/shows')
+    .query({q})
+    .reply(200, response)
+
+  client
+    .search(q, {sigle: true})
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.equals(body.name, 'Girls', 'should retrieve a show name')
+      t.end()
+    })
+})
