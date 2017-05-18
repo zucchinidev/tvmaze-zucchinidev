@@ -1,5 +1,5 @@
 import { test } from 'babel-tap'
-import * as tvmaze from '../index'
+import { tvmaze } from '../index'
 import { Client } from '../lib/client'
 import nock from 'nock'
 const endpoint = 'http://api.tvmaze.test'
@@ -69,20 +69,26 @@ test('should fail with unknown endpoint', (t) => {
     })
 })
 
-test('should fail with unknown endpoint', (t) => {
+test('should fail if not query is passed', (t) => {
   const client = tvmaze.createClient({
     endpoint
   })
 
   nock(endpoint)
-    .get('/foo')
-    .reply(404)
+    .get('/search/shows')
+    .reply(400, {
+      code: 0,
+      message: 'Missing required parameter: q',
+      name: 'Bad request',
+      statusCode: 400
+    })
 
   client
-    .request('foo', 'GET')
+    .search()
     .then(() => {})
     .catch((err) => {
       t.ok(err, 'should fail')
+      t.notOk(err.body, 'should be null')
       t.end()
     })
 })
