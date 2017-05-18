@@ -50,3 +50,39 @@ test('should search shows', (t) => {
       t.end()
     })
 })
+
+test('should fail with unknown endpoint', (t) => {
+  const client = tvmaze.createClient({
+    endpoint
+  })
+
+  nock(endpoint)
+    .get('/foo')
+    .reply(404)
+
+  client
+    .request('foo', 'GET')
+    .then(() => {})
+    .catch((err) => {
+      t.ok(err, 'should fail')
+      t.end()
+    })
+})
+
+test('should fail with unknown endpoint', (t) => {
+  const client = tvmaze.createClient({
+    endpoint
+  })
+
+  nock(endpoint)
+    .get('/foo')
+    .reply(404)
+
+  client
+    .request('foo', 'GET')
+    .then(() => {})
+    .catch((err) => {
+      t.ok(err, 'should fail')
+      t.end()
+    })
+})
