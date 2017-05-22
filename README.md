@@ -9,23 +9,23 @@ $ npm install tvmaze-zucchinidev --save
 ```
 ## Usage
 ```js
-import { tvmaze } from 'tv-maze-zucchinidev'
+import { tvmaze } from 'tvmaze-zucchinidev'
 const client = tvmaze.createClient()
 
-client.shows().then((response) => {
+client.shows().then(({body}) => {
     // do something with shows
 })
 
 
-client.show(showId).then((response) => {
+client.show(showId).then(({body}) => {
     // do something with show
 })
 
-client.search(showName).then((response) => {
+client.search(showName).then(({body}) => {
     // do something with shows
 })
 
-client.search(showName, { single: true }).then((response) => {
+client.search(showName, { single: true }).then(({body}) => {
     // do something with show
 })
 ```
