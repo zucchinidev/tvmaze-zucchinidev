@@ -69,6 +69,55 @@ test('should fail with unknown endpoint', (t) => {
     })
 })
 
+test('should create any query', (t) => {
+  const client = tvmaze.createClient({
+    endpoint
+  })
+
+  nock(endpoint)
+    .get('/people/1')
+    .reply(200, {
+      "id": 1,
+      "url": "http://www.tvmaze.com/people/1/mike-vogel",
+      "name": "Mike Vogel",
+      "image": {
+        "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/0/1815.jpg",
+        "original": "http://static.tvmaze.com/uploads/images/original_untouched/0/1815.jpg"
+      },
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/people/1"
+        }
+      }
+    })
+
+  client
+    .request('people/1', 'GET')
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.end()
+    })
+})
+
+test('should create any query', (t) => {
+  const client = tvmaze.createClient({
+    endpoint
+  })
+
+  nock(endpoint)
+    .get('/people/1/castcredits?embed=show')
+    .reply(200, {})
+
+  const embed = 'show'
+  client
+    .request('people/1/castcredits', 'GET', {embed})
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.end()
+    })
+})
+
+
 test('should fail if not query is passed', (t) => {
   const client = tvmaze.createClient({
     endpoint
