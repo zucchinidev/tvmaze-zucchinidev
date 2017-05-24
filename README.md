@@ -12,22 +12,76 @@ $ npm install tvmaze-zucchinidev --save
 import { tvmaze } from 'tvmaze-zucchinidev'
 const client = tvmaze.createClient()
 
-client.shows().then(({body}) => {
-    // do something with shows
+
+test('should list shows', (t) => {
+  client
+    .shows()
+    .then((response) => {
+      t.ok(Array.isArray(response.body), 'should be an array')
+      t.end()
+    })
 })
 
-
-client.show(showId).then(({body}) => {
-    // do something with show
+test('should retrieve a show by id', (t) => {
+  client
+    .show(id)
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.end()
+    })
 })
 
-client.search(showName).then(({body}) => {
-    // do something with shows
+test('should search shows', (t) => {
+  const name = 'limitless'
+  client
+    .search(name)
+    .then(({body}) => {
+      t.ok(Array.isArray(body), 'should be an array')
+      t.equals(body[0].name, 'limitless', 'should retrieve a show name')
+      t.end()
+    })
 })
 
-client.search(showName, { single: true }).then(({body}) => {
-    // do something with show
+test('should search a single show', (t) => {
+  const q = 'girls'
+  client
+    .search(q, {sigle: true})
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.equals(body.name, 'Girls', 'should retrieve a show name')
+      t.end()
+    })
 })
+test('should retrieve a page', (t) => {
+  client
+    .getPage(0)
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.equals(typeof body, 'object', 'should be an object')
+      t.ok(Array.isArray(body), 'object', 'should be an array')
+      t.end()
+    })
+})
+
+test('should create any query', (t) => {
+  client
+    .request('people/1', 'GET')
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.end()
+    })
+})
+
+test('should create any query', (t) => {
+  const embed = 'show' // params
+  client
+    .request('people/1/castcredits', 'GET', {embed})
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.end()
+    })
+})
+
 ```
 
 
