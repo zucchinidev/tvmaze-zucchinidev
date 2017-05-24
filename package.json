@@ -10,7 +10,8 @@
     "test": "npm run lint && babel-tap test/*-test.js | tap-spec",
     "start": "node bin/dev",
     "clean": "rm -rf dist",
-    "build": "npm run clean && babel lib -s -d dist",
+    "prebuild": "npm run clean",
+    "build": "NODE_ENV=production babel lib -s -d dist",
     "production": "node bin/production",
     "coverage": "istanbul cover babel-tap -- test/*-test.js"
   },
