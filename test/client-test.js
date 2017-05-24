@@ -144,3 +144,34 @@ test('should retrieve a show by id', (t) => {
       t.end()
     })
 })
+
+test('should retrieve a page', (t) => {
+  const client = tvmaze.createClient({
+    endpoint
+  })
+
+  const response = [{
+    'id': 1,
+    'url': 'http://www.tvmaze.com/shows/1/girls',
+    'name': 'Girls',
+    'language': 'English'
+  }, {
+    'id': 2,
+    'url': 'http://www.tvmaze.com/shows/2/girls',
+    'name': 'Girls',
+    'language': 'English'
+  }]
+  const page = 0
+  nock(endpoint)
+    .get(`/shows?page=${page}`)
+    .reply(200, response)
+
+  client
+    .getPage(0)
+    .then(({body}) => {
+      t.ok(body, 'should be an object')
+      t.equals(typeof body, 'object', 'should be an object')
+      t.ok(Array.isArray(body), 'object', 'should be an array')
+      t.end()
+    })
+})
