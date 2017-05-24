@@ -1,6 +1,6 @@
 {
   "name": "tvmaze-zucchinidev",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "A TV maze wrapper client",
   "main": "dist/index.js",
   "scripts": {
